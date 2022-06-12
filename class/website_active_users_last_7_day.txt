@@ -1,0 +1,13 @@
+select a.user_id, count(*) from login_info a join login_info b on a.user_id = b.user_id 
+where datetime(a.login_time) == datetime(b.login_time, '-1 days')
+group by 1
+having count(a.user_id)=7
+------------------------------------------------
+
+select  count(*)*100/(select count(DISTINCT(student_id)) from attendence_events)
+from attendence_events
+join all_students
+on all_students.student_id = attendence_events.student_id
+where attendence = 'present'
+and (strftime('%m', attendence_events.date_events)  = strftime('%m', attendence_events.date_events))
+and (strftime('%d', attendence_events.date_events)  = strftime('%d', attendence_events.date_events))
